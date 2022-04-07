@@ -21,6 +21,7 @@ from utils.test_model import test_model
 from utils.train_model import train_model
 from utils.utils import get_logger, is_logging_process, set_random_seed
 from utils.writer import Writer
+# os.environ['CUDA_VISIBLE_DEVICES'] = "5,7"
 
 
 def setup(cfg, rank):
@@ -59,6 +60,7 @@ def train_loop(rank, cfg):
         torch.cuda.set_device(cfg.device)
 
     # setup writer
+    writer = None  # 除了主进程外，其他进程的writer赋值为None
     if is_logging_process():
         # set log/checkpoint dir
         os.makedirs(cfg.log.chkpt_dir, exist_ok=True)
