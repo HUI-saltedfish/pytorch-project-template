@@ -95,7 +95,7 @@ def train_loop(rank, cfg):
     # make dataloader
     if is_logging_process():
         logger.info("Making train dataloader...")
-    train_loader = create_dataloader(cfg, DataloaderMode.train, rank)
+    train_loader, sampler = create_dataloader(cfg, DataloaderMode.train, rank)
     if is_logging_process():
         logger.info("Making test dataloader...")
     test_loader = create_dataloader(cfg, DataloaderMode.test, rank)
@@ -122,6 +122,8 @@ def train_loop(rank, cfg):
         for model.epoch in itertools.count(model.epoch + 1, epoch_step):
             if model.epoch > cfg.num_epoch:
                 break
+            if sampler is not None:
+                sampler.set_epoch(model.epoch)
             train_model(cfg, model, train_loader, writer)
             if model.epoch % cfg.log.chkpt_interval == 0:
                 model.save_network()
