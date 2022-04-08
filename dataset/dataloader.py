@@ -42,7 +42,7 @@ def create_dataloader(cfg, mode, rank):
             num_workers=cfg.train.num_workers,
             pin_memory=True,
             drop_last=True,
-        )
+        ), sampler
     elif mode is DataloaderMode.test:
         return data_loader(
             dataset=dataset,
