@@ -18,7 +18,7 @@ class Model:
         self.net = net_arch.to(self.device)
         self.rank = rank
         if self.device != "cpu" and self.cfg.dist.gpus != 0:
-            self.net = DDP(self.net, device_ids=[self.rank])
+            self.net = DDP(self.net, device_ids=[self.rank], find_unused_parameters=True)
         self.step = 0
         self.epoch = -1
         self._logger = get_logger(cfg, os.path.basename(__file__))
