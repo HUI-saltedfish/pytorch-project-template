@@ -1,6 +1,6 @@
 # @package _global_
 name: 'First_training'
-working_dir: ???
+working_dir: /mnt/users/pytorch-project-template
 device: 'cuda'
 random_seed: ~
 num_epoch: 10000  # max iteration
@@ -29,7 +29,7 @@ dist:
   master_addr: 'localhost'
   master_port: '12355'
   mode: 'nccl'
-  gpus: 0 # 0 for not using dist, -1 for using all gpus
+  gpus: -1 # 0 for not using dist, -1 for using all gpus
   timeout: 30 # seconds for timeout. In nccl mode, set ~ for not using timeout
 log:
   use_tensorboard: true
