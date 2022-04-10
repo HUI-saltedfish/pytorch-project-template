@@ -8,7 +8,7 @@ import wandb
 from omegaconf import OmegaConf
 from torch.nn.parallel import DistributedDataParallel as DDP
 
-from utils.utils import get_logger, is_logging_process
+from utils.utils import get_logger, is_logging_process, reduce_value
 
 
 class Model:
@@ -42,6 +42,9 @@ class Model:
         output = self.run_network(model_input)
         loss_v = self.loss_f(output, model_target.to(self.device))
         loss_v.backward()
+        
+        loss_v = reduce_value(loss_v)
+        
         self.optimizer.step()
         # set log
         self.log.loss_v = loss_v.item()

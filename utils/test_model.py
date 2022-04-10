@@ -17,7 +17,6 @@ def test_model(cfg, model, test_loader, writer):
             if cfg.dist.gpus > 0:
                 # Aggregate loss_v from all GPUs. loss_v is set as the sum of all GPUs' loss_v.
                 reduce_value(loss_v, average=True)
-                loss_v /= torch.tensor(float(cfg.dist.gpus))
             total_test_loss += loss_v.to("cpu").item()
             test_loop_len += 1
 

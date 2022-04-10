@@ -27,7 +27,7 @@ model:
   ~
 dist:
   master_addr: 'localhost'
-  master_port: '12355'
+  master_port: '12335'
   mode: 'nccl'
   gpus: -1 # 0 for not using dist, -1 for using all gpus
   timeout: 30 # seconds for timeout. In nccl mode, set ~ for not using timeout
