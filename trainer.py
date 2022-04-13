@@ -102,6 +102,8 @@ def train_loop(rank, cfg):
 
     # init Model
     net_arch = Net_arch(cfg)
+    if cfg.model.syncBN is not None:
+        net_arch = torch.nn.SyncBatchNorm.convert_sync_batchnorm(net_arch)
     loss_f = torch.nn.CrossEntropyLoss()
     model = Model(cfg, net_arch, loss_f, rank)
 
