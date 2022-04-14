@@ -21,7 +21,7 @@ from utils.test_model import test_model
 from utils.train_model import train_model
 from utils.utils import get_logger, is_logging_process, set_random_seed
 from utils.writer import Writer
-# os.environ['CUDA_VISIBLE_DEVICES'] = "5,7"
+# os.environ['CUDA_VISIBLE_DEVICES'] = "0, 1, 4, 6"
 
 
 def setup(cfg, rank):
